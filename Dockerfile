@@ -11,6 +11,5 @@ RUN wget https://getfrp.sh/d/frpc_linux_amd64
 RUN chmod 755 frpc_linux_amd64
 RUN mv frpc_linux_amd64 /bin
 RUN echo 'frpc_linux_amd64 -f bac9052e736372dc:1216280' >>/1.sh
-RUN echo 'frpc_linux_amd64 bac9052e736372dc:1227893' >>/1.sh
 RUN chmod 755 /1.sh
 CMD  /1.sh
