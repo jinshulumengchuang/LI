@@ -1,16 +1,12 @@
-FROM httpd
-EXPOSE 80
+FROM debian
 RUN apt update
-RUN apt install ssh wget -y
-RUN mkdir /var/run/sshd 
-RUN echo 'httpd-foreground &' >/1.sh
-RUN echo '/usr/sbin/sshd -D&' >>/1.sh
+RUN apt install ssh wget npm -y
+RUN  npm install -g wstunnel
+RUN mkdir /run/sshd 
+RUN echo 'wstunnel -s 0.0.0.0:80 &' >>/1.sh
+RUN echo '/usr/sbin/sshd -D' >>/1.sh
 RUN echo 'PermitRootLogin yes' >>  /etc/ssh/sshd_config 
 RUN echo root:Tu!192168|chpasswd
-RUN wget https://getfrp.sh/d/frpc_linux_amd64
-RUN chmod 755 frpc_linux_amd64
-RUN mv frpc_linux_amd64 /bin
-RUN echo 'frpc_linux_amd64  -f bac9052e736372dc:1227893 &' >>/1.sh
-RUN echo 'frpc_linux_amd64  -f bac9052e736372dc:1216280' >>/1.sh
 RUN chmod 755 /1.sh
+EXPOSE 80
 CMD  /1.sh
